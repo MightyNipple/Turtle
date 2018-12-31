@@ -2,8 +2,8 @@ cmake_minimum_required (VERSION 2.9)
 project (Turtle)
 
 
-set(DO_USE_SDL false)
-set(DO_USE_FLTK true)
+set(DO_USE_SDL true)
+set(DO_USE_FLTK false)
 
 
 include_directories(include)
