@@ -6,7 +6,10 @@
 int EventHandler::pollNextEvent()
 {
     SDL_Event e;
-    SDL_PollEvent(&e);
+    if (!SDL_PollEvent(&e))
+    {
+        return FRC_NOEVENT;
+    }
     switch (e.type)
     {
     case SDL_QUIT:

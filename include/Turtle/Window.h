@@ -9,4 +9,8 @@ public:
     ~Window();
     int init(int x, int y, int w, int h, const char* title);
     int show();
+    void* getPixelData() const;
+    int getWidth() const;
+    int getHeight() const;
+    int redraw();
 };

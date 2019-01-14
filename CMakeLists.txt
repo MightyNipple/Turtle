@@ -2,12 +2,22 @@ cmake_minimum_required (VERSION 2.9)
 project (Turtle)
 
 
+set(VERSION 1.0.1)
+
+
 set(DO_USE_SDL true)
 set(DO_USE_FLTK false)
+set(DO_USE_SOFTWARE_RENDERING true)
 
 
 include_directories(include)
 file(GLOB SOURCES "src/*.cpp" "src/PlatformDependent/*.cpp")
+
+if (${DO_USE_SOFTWARE_RENDERING})
+    file(GLOB CPP_SR_FILES "src/PlatformDependent/SoftwareRender/*.cpp")
+    file(GLOB CPP_SR_HEADERS "src/PlatformDependent/SoftwareRender/*.h")
+    set(SOURCES ${SOURCES} ${CPP_SR_FILES} ${CPP_SR_HEADERS})
+endif()
 
 if (${DO_USE_SDL})
     file(GLOB CPP_SDL_FILES "src/PlatformDependent/SDL/*.cpp")
@@ -29,6 +39,5 @@ elseif (${DO_USE_FLTK})
     include_directories(${FLTK_INCLUDE_DIRS})
     target_link_libraries(Turtle ${FLTK_LIBRARIES})
 endif()
-
 
 
