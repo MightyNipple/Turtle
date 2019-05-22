@@ -7,8 +7,8 @@
 class Renderer
 {
 private:
-    struct Private;
-    Private* pimpl;
+    struct Pimpl;
+    Pimpl* pimpl;
 public:
     Renderer();
     Renderer(const Window& wnd);

@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 {
     ASSERT(false);
     Window w;
-    w.init(0, 0, 200, 200, "Turtle");
+    w.init(50, 50, 500, 300, "Turtle");
     Renderer rnd(w);
     EventHandler eh;
     while (eh.pollNextEvent() != FRC_QUIT)
