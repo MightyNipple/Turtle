@@ -15,7 +15,7 @@ struct Vertex3D
 struct RenderEdge
 {
     float x;
-	float xStep;
+    float xStep;
     void step()
     {
         x += xStep;
@@ -28,7 +28,7 @@ struct RenderEdge
     {
         x = topVert->pos.x;
         // ????
-        xStep = (botVert->pos.x - topVert->pos.x) / (botVert->pos.y - botVert->pos.y);
+        xStep = (botVert->pos.x - topVert->pos.x) / (topVert->pos.y - botVert->pos.y);
     }
 };
 
@@ -67,9 +67,12 @@ int Renderer::Pimpl::fillTriangle(int yTop, int yBot, RenderEdge& reLeft, Render
         int xMax = (int)reRight.x;
         while (x <= xMax)
         {
+            
             surface_.setPixel(x, yTop, 255, 0, 0);
             ++x;
         }
+        reLeft.step();
+        reRight.step();
         --yTop;
     }
     return FRC_OK;
@@ -80,22 +83,22 @@ int Renderer::Pimpl::drawTriangle(Vertex3D* vertTop, Vertex3D* vertMid, Vertex3D
 {
     if (vertTop->pos.y < vertMid->pos.y)
     {
-	    Vertex3D* tmp = vertTop;
-		vertTop = vertMid;
-		vertMid = tmp;
-	}
-	if (vertMid->pos.y < vertBot->pos.y)
+        Vertex3D* tmp = vertTop;
+        vertTop = vertMid;
+        vertMid = tmp;
+    }
+    if (vertMid->pos.y < vertBot->pos.y)
     {
-	    Vertex3D* tmp = vertMid;
-		vertMid = vertBot;
-		vertBot = tmp;
-	}
-	if (vertTop->pos.y < vertMid->pos.y)
+        Vertex3D* tmp = vertMid;
+        vertMid = vertBot;
+        vertBot = tmp;
+    }
+    if (vertTop->pos.y < vertMid->pos.y)
     {
-	    Vertex3D* tmp = vertTop;
-		vertTop = vertMid;
-		vertMid = tmp;
-	}
+        Vertex3D* tmp = vertTop;
+        vertTop = vertMid;
+        vertMid = tmp;
+    }
     RenderEdge topToMid(vertTop, vertMid);
     RenderEdge topToBot(vertTop, vertBot);
     RenderEdge midToBot(vertMid, vertBot);
@@ -106,7 +109,6 @@ int Renderer::Pimpl::drawTriangle(Vertex3D* vertTop, Vertex3D* vertMid, Vertex3D
     {
         fillTriangle((int)(vertTop->pos.y), (int)(vertMid->pos.y) + 1, topToBot, topToMid);
         midToBot.step(vertMid->pos.y - glm::floor(vertMid->pos.y));
-        
         fillTriangle((int)vertMid->pos.y, (int)(vertBot->pos.y) + 1, topToBot, midToBot);
     } 
     else 
@@ -125,9 +127,9 @@ int Renderer::render()
     v1.pos.x = 2.0;
     v1.pos.y = 2.0;
     v2.pos.x = 102.0;
-    v2.pos.y = 10.0;
+    v2.pos.y = 100.0;
     v3.pos.x = 50.0;
-    v3.pos.y = 102.0;
+    v3.pos.y = 272.0;
     pimpl->drawTriangle(&v1, &v2, &v3);
     return FRC_OK;
 }
