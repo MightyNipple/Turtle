@@ -123,7 +123,6 @@ int Renderer::Pimpl::drawTriangle(Vertex3D* vertTop, Vertex3D* vertMid, Vertex3D
 
 int Renderer::render(int delta)
 {
-     std::cout << "rendering with delta " << delta << std::endl;
     Vertex3D v1, v2, v3;
     v1.pos.x = 22.0 + delta;
     v1.pos.y = 2.0;
