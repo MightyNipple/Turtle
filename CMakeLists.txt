@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 2.9)
 project (Turtle)
 
 
-set(VERSION 1.0.1)
+set(VERSION 1.0.2)
 
 
 set(DO_USE_SDL true)
@@ -10,8 +10,11 @@ set(DO_USE_FLTK false)
 set(DO_USE_SOFTWARE_RENDERING true)
 
 
+#do not edit anything below
+
 include_directories(include)
-file(GLOB SOURCES "src/*.cpp" "src/PlatformDependent/*.cpp")
+file(GLOB SOURCES "src/*.cpp"
+                  "src/PlatformDependent/*.cpp")
 
 if (${DO_USE_SOFTWARE_RENDERING})
     file(GLOB CPP_SR_FILES "src/PlatformDependent/SoftwareRender/*.cpp")

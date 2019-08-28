@@ -121,15 +121,23 @@ int Renderer::Pimpl::drawTriangle(Vertex3D* vertTop, Vertex3D* vertMid, Vertex3D
 }
 
 
-int Renderer::render()
+int Renderer::render(int delta)
 {
+     std::cout << "rendering with delta " << delta << std::endl;
     Vertex3D v1, v2, v3;
-    v1.pos.x = 2.0;
+    v1.pos.x = 22.0 + delta;
     v1.pos.y = 2.0;
-    v2.pos.x = 102.0;
+    v2.pos.x = 122.0 + delta;
     v2.pos.y = 100.0;
-    v3.pos.x = 50.0;
+    v3.pos.x = 70.0 + delta;
     v3.pos.y = 272.0;
+    for (int i = 0; i < 200; ++i)
+    {
+        for (int j = 0; j < 300; ++j)
+        {
+            pimpl->surface_.setPixel(i, j, 255, 255, 255);
+        }
+    }
     pimpl->drawTriangle(&v1, &v2, &v3);
     return FRC_OK;
 }

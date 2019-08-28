@@ -1,29 +1,22 @@
+#pragma once
+
+
 template <typename T>
 class Stack
 {
 public:
     Stack();
     ~Stack();
-    int push(T);
+    int push(const T&);
     int pop();
     T* topPtr();
-    T top();
+    T& top();
     int size();
 protected:
     struct Node;
     Node* top_;
     int size_;
 };
-
-
-template <typename T>
-class Queue : public Stack<T>
-{
-public:
-    Queue();
-protected:
-    Node* bot_;
-}
 
 
 template <typename T>
@@ -44,8 +37,7 @@ template <typename T>
 Stack<T>::Stack()
 {
     size_ = 0;
-    top_ = new Node;
-    top_->next = 0;
+    top_ = 0;
 }
 
 
@@ -53,7 +45,7 @@ template <typename T>
 Stack<T>::~Stack()
 {
     Node* curP = top_;
-    Node* nextP = top_->next;
+    Node* nextP;
     while (curP)
     {
         nextP = curP->next;
@@ -64,7 +56,7 @@ Stack<T>::~Stack()
 
 
 template <typename T>
-int Stack<T>::push(T val)
+int Stack<T>::push(const T& val)
 {
     top_ = new Node(val, top_);
     return ++size_;
@@ -74,12 +66,12 @@ int Stack<T>::push(T val)
 template <typename T>
 int Stack<T>::pop()
 {
-    if (size_)
+    if (top_)
     {
-        Node* newRoot = top_->next;
+        Node* newTop = top_->next;
         delete top_;
-        top_ = newRoot;
-        return size_--;
+        top_ = newTop;
+        return --size_;
     }
     return 0;
 }
@@ -93,7 +85,7 @@ T* Stack<T>::topPtr()
 
 
 template <typename T>
-T Stack<T>::top()
+T& Stack<T>::top()
 {
     return top_->value;
 }

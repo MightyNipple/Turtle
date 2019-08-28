@@ -13,5 +13,5 @@ public:
     Renderer();
     Renderer(const Window& wnd);
     ~Renderer();
-    int render();
+    int render(int);
 };

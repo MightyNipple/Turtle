@@ -5,20 +5,24 @@
 
 int EventHandler::pollNextEvent()
 {
-    SDL_Event e;
-    if (!SDL_PollEvent(&e))
+    SDL_Event event;
+    if (!SDL_PollEvent(&event))
     {
         return FRC_NOEVENT;
     }
-    switch (e.type)
+    switch (event.type)
     {
     case SDL_KEYDOWN:
+        inputHandler_->handleKey(event.key.keysym.scancode, true);
         break;
     case SDL_KEYUP:
+        inputHandler_->handleKey(event.key.keysym.scancode, false);
         break;
     case SDL_MOUSEBUTTONDOWN:
+        inputHandler_->handleKey(event.key.keysym.scancode, true);
         break;
     case SDL_MOUSEBUTTONUP:
+        inputHandler_->handleKey(event.key.keysym.scancode, false);
         break;
     case SDL_MOUSEMOTION:
         break;
